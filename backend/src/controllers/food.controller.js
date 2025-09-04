@@ -4,32 +4,24 @@ const { v4: uuid } = require("uuid")
 
 const createfood = async (req, res) => {
     const partner = req.partner;
-    console.log(partner)
+    console.log(partner._id)
     console.log(req.body);
     console.log(req.file);
 
-    try {
-        if (!req.file) {
-            return res.status(400).json({ error: 'No video file provided' });
-        }
+    const fileUploadResult = await uploadFile(req.file.buffer, uuid())
 
-        const fileUrl = await uploadFile(req.file.buffer, uuid());
-
-        const foodItem = await foodModel.create({
-            name: req.body.name,
-            video: fileUrl,
-            description: req.body.description,
-            foodPartner: partner._id
-        });
-    }
-    catch (err) {
-        console.log(err)
-    }
+    const foodItem = await foodModel.create({
+        name: req.body.name,
+        description: req.body.description,
+        video: fileUploadResult.url,
+        foodPartner: partner._id
+    })
 
     res.status(201).json({
-        message: "Food Item Added Successfully.",
+        message: "food created successfully",
         food: foodItem
     })
+
 }
 
 const getFoodController = async (req, res) => {
