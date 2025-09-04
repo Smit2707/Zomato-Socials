@@ -1,13 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from '../api/axios'
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+
 const Home = () => {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
   const videoRefs = useRef([]);
-  const [videos, setVideos] = useState([])
-  console.log(videos)
-
+  const [videos, setVideos] = useState([]);
+  const token = Cookies.get('token');
 
   // Handle scroll to snap to videos
   const handleScroll = (e) => {
