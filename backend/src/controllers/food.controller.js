@@ -8,19 +8,36 @@ const createfood = async (req, res) => {
     console.log(req.body);
     console.log(req.file);
 
-    const fileUpload = await uploadFile(req.file.buffer, uuid());
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No video file provided' });
+        }
 
-    const foodItem = await foodModel.create({
-        name: req.body.name,
-        video: fileUpload.url,
-        description: req.body.descreption,
-        foodPartner: partner._id
-    });
+        const fileUrl = await uploadFile(req.file.buffer, uuid());
+
+        const foodItem = await foodModel.create({
+            name: req.body.name,
+            video: fileUrl,
+            description: req.body.description,
+            foodPartner: partner._id
+        });
+    }
+    catch (err) {
+        console.log(err)
+    }
 
     res.status(201).json({
         message: "Food Item Added Successfully.",
-        food : foodItem
+        food: foodItem
     })
 }
 
-module.exports = createfood;
+const getFoodController = async (req, res) => {
+    const foods = await foodModel.find({});
+    res.status(200).json({
+        message: "Food Items Fetched Successfully.",
+        food: foods
+    })
+}
+
+module.exports = { createfood, getFoodController };

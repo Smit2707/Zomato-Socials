@@ -77,7 +77,7 @@ const logoutController = (req, res) => {
 }
 
 const foodPartnerRegisterController = async (req, res) => {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, phone, address, contactName } = req.body;
 
     const partnerIsExist = await foodPartnerModel.findOne({ email: email });
 
@@ -89,8 +89,14 @@ const foodPartnerRegisterController = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    if(phone.length < 10 || phone.length > 10){
+        return res.status(400).json({
+            message: "Phone number must be 10 digit long."
+        })
+    }
+
     const foodPartner = await foodPartnerModel.create({
-        fullName, email, password: hashedPassword
+        fullName, email, password: hashedPassword, phone, address, contactName
     })
 
     const token = jwt.sign({ id: foodPartner._id }, process.env.JWT_SECRET_KEY)
@@ -103,7 +109,10 @@ const foodPartnerRegisterController = async (req, res) => {
         user: {
             _id: foodPartner._id,
             email: foodPartner.email,
-            fullname: foodPartner.fullName
+            fullname: foodPartner.fullName,
+            phone: foodPartner.phone,
+            contactName: foodPartner.contactName,
+            address: foodPartner.address
         }
     })
 }
