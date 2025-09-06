@@ -9,18 +9,44 @@ import PartnerLogin from '../pages/authPartner/PartnerLogin'
 import PartnerDetails from '../pages/partner/PartnerDetails'
 import PartnerHome from '../pages/partner/PartnerHome'
 import CreateFood from '../pages/partner/create-video/CreateFood'
+import Cookies from 'js-cookie';
 
 const MainRoutes = () => {
+  const token = Cookies.get('token');
   return (
     <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/partner" element={<PartnerHome />} />
-        <Route path="/user/register" element={<UserRegister />} />
-        <Route path="/user/login" element={<UserLogin />} />
-        <Route path="/partner/login" element={<PartnerLogin />} />
-        <Route path="/partner/register" element={<PartnerRegister />} />
-        <Route path="/partner/create-food" element={<CreateFood />} />
-        <Route path="/food-partner/:id" element={<PartnerDetails />} />
+      <Route
+        path="/"
+        element={token ? <Home /> : <UserLogin />}
+      />
+      <Route
+        path="/partner"
+        element={token ? <Home /> : <PartnerLogin />}
+      />
+      <Route
+        path="/user/register"
+        element={!token ? <UserRegister /> : <Home />}
+      />
+      <Route
+        path="/user/login"
+        element={!token ? <UserLogin /> : <Home />}
+      />
+      <Route
+        path="/partner/login"
+        element={!token ? <PartnerLogin /> : <Home />}
+      />
+      <Route
+        path="/partner/register"
+        element={!token ? <PartnerRegister /> : <Home />}
+      />
+      <Route
+        path="/partner/create-food"
+        element={token ? <CreateFood /> : <PartnerLogin />}
+      />
+      <Route
+        path="/food-partner/:id"
+        element={token ? <PartnerDetails /> : <PartnerLogin />}
+      />
     </Routes>
   )
 }
