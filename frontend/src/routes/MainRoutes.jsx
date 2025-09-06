@@ -8,6 +8,7 @@ import PartnerRegister from '../pages/authPartner/PartnerRegister'
 import PartnerLogin from '../pages/authPartner/PartnerLogin'
 import PartnerDetails from '../pages/partner/PartnerDetails'
 import PartnerHome from '../pages/partner/PartnerHome'
+import CreateFood from '../pages/partner/create-video/CreateFood'
 
 const MainRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const MainRoutes = () => {
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/partner/login" element={<PartnerLogin />} />
         <Route path="/partner/register" element={<PartnerRegister />} />
+        <Route path="/partner/create-food" element={<CreateFood />} />
         <Route path="/food-partner/:id" element={<PartnerDetails />} />
     </Routes>
   )
