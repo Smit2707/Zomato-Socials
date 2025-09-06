@@ -2,12 +2,12 @@ import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import App from '../App'
 import Home from '../pages/Home'
-import PartnerHome from '../pages/PartnerHome'
-import PartnerDetails from '../pages/PartnerDetails'
 import UserRegister from '../pages/authUser/UserRegister'
 import UserLogin from '../pages/authUser/UserLogin'
 import PartnerRegister from '../pages/authPartner/PartnerRegister'
 import PartnerLogin from '../pages/authPartner/PartnerLogin'
+import PartnerDetails from '../pages/partner/PartnerDetails'
+import PartnerHome from '../pages/partner/PartnerHome'
 
 const MainRoutes = () => {
   return (
