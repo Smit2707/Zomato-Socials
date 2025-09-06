@@ -1,4 +1,4 @@
-const { getFoodController, createfood, getFoodByIdController } = require("../controllers/food.controller");
+const { getFoodController, createfood, likeFoodController, saveFoodController } = require("../controllers/food.controller");
 const { foodPartnerMiddleware, userMiddleware } = require("../middlewares/auth.middleware");
 const foodModel = require("../models/food.model");
 const express = require("express")
@@ -17,6 +17,10 @@ router.post(
     createfood
 );
 
-router.get("/", userMiddleware, getFoodController)
+router.get("/", userMiddleware, getFoodController);
+
+router.post("/like", userMiddleware, likeFoodController);
+
+router.post("/save", userMiddleware, saveFoodController)
 
 module.exports = router;
