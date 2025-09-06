@@ -1,4 +1,5 @@
 const foodModel = require("../models/food.model");
+const foodPartnerModel = require("../models/foodpartner.model");
 const { uploadFile } = require("../services/storage.service");
 const { v4: uuid } = require("uuid")
 
@@ -31,5 +32,6 @@ const getFoodController = async (req, res) => {
         food: foods
     })
 }
+
 
 module.exports = { createfood, getFoodController };
