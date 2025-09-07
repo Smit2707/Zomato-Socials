@@ -1,3 +1,4 @@
+import path from "path"
 require("dotenv").config();
 const express = require("express");
 const connectToDb = require("./db/db");
@@ -6,7 +7,6 @@ const foodRoutes = require("./routes/food.routes");
 const foodPartnerRoutes = require("./routes/food-partner.routes")
 const cookieParser = require("cookie-parser")
 const cors = require('cors')
-import path from "path"
 
 const app = express();
 
