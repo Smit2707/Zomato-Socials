@@ -6,6 +6,7 @@ const foodRoutes = require("./routes/food.routes");
 const foodPartnerRoutes = require("./routes/food-partner.routes")
 const cookieParser = require("cookie-parser")
 const cors = require('cors')
+import path from "path"
 
 const app = express();
 
@@ -20,7 +21,7 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
     res.send("Hello from server")
 })
-
+app.use(express.static(path.join(new URL('.', import.meta.url).pathname, 'public')))
 app.use("/api/auth", authRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/food-partner", foodPartnerRoutes);
