@@ -11,23 +11,31 @@ const cors = require('cors')
 const app = express();
 
 
+const allowedOrigins = [
+    process.env.FRONTEND_ORIGIN,
+    "http://localhost:5173",
+    "https://foodie-gram.onrender.com"
+].filter(Boolean);
+
 app.use(cors({
-    origin: "http://localhost:5173" || "https://foodie-gram.onrender.com",
+    origin: function(origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true
 }));
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/", (req, res) => {
-    res.send("Hello from server")
-})
 app.use(express.static(path.join(__dirname, '../public')))
 app.use("/api/auth", authRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/food-partner", foodPartnerRoutes);
 
-app.get("*name", (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'))
+app.get(["/", "/*"], (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "public", "index.html"))
 })
 
 module.exports = app;
