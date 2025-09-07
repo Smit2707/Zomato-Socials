@@ -12,16 +12,16 @@ const app = express();
 
 
 app.use(cors({
-    origin:"http://localhost:5173",
-    credentials: true 
-}))
+    origin: "http://localhost:5173" || "https://foodie-gram.onrender.com",
+    credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
 app.get("/", (req, res) => {
     res.send("Hello from server")
 })
-app.use(express.static(path.join(new URL('.', import.meta.url).pathname, 'public')))
+app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use("/api/auth", authRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/food-partner", foodPartnerRoutes);
