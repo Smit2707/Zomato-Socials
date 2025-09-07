@@ -21,9 +21,13 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
     res.send("Hello from server")
 })
-app.use(express.static(path.join(__dirname, '..', 'public')))
+app.use(express.static(path.join(__dirname, '../public')))
 app.use("/api/auth", authRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/food-partner", foodPartnerRoutes);
+
+app.get("*name", (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'))
+})
 
 module.exports = app;
