@@ -34,7 +34,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/food-partner", foodPartnerRoutes);
 
-app.get(["/", "/*"], (req, res) => {
+// Serve SPA for all non-API routes
+app.get(/^(?!\/api\/).*/, (req, res) => {
     res.sendFile(path.join(__dirname, "..", "public", "index.html"))
 })
 
