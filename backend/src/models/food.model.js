@@ -1,22 +1,26 @@
 const mongoose = require("mongoose")
 
 const foodSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: true,
     },
-    video:{
+    video: {
         type: String,
         required: true
     },
-    description:{
+    description: {
         type: String,
     },
-    foodPartner:{
+    foodPartner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "food-partner",
     },
-    likeCount:{
+    likeCount: {
+        type: Number,
+        default: 0
+    },
+    saveCount: {
         type: Number,
         default: 0
     }

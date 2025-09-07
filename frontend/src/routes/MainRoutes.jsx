@@ -10,6 +10,7 @@ import PartnerDetails from '../pages/partner/PartnerDetails'
 import PartnerHome from '../pages/partner/PartnerHome'
 import CreateFood from '../pages/partner/create-video/CreateFood'
 import Cookies from 'js-cookie';
+import Saved from '../pages/Saved'
 
 const MainRoutes = () => {
   const token = Cookies.get('token');
@@ -18,6 +19,10 @@ const MainRoutes = () => {
       <Route
         path="/"
         element={token ? <Home /> : <UserLogin />}
+      />
+      <Route
+        path="/saved"
+        element={token ? <Saved /> : <UserLogin />}
       />
       <Route
         path="/partner"
