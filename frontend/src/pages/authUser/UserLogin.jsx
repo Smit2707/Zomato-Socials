@@ -16,6 +16,9 @@ const UserLogin = ({ toggleForm, toggleUserType }) => {
       // console.log('User login:', data);
 
       const response = await axios.post("/auth/user/login", data, { withCredentials: true });
+      if (response?.data?.token) {
+        localStorage.setItem('token', response.data.token);
+      }
       console.log("Api Response: ", response);
 
       toast.success('Successfully logged in!', {

@@ -80,6 +80,9 @@ const Home = () => {
       position: "top-right",
       autoClose: 3000,
     });
+    try {
+      localStorage.removeItem('token');
+    } catch (e) {}
     navigate("/user/login");
   }
 

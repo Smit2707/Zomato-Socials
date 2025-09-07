@@ -18,39 +18,39 @@ const MainRoutes = () => {
     <Routes>
       <Route
         path="/"
-        element={ <Home /> }
+        element={token ? <Home /> : <UserLogin />}
       />
       <Route
         path="/saved"
-        element={ <Saved />}
+        element={token ? <Saved /> : <UserLogin />}
       />
       <Route
         path="/partner"
-        element={<Home />}
+        element={token ? <Home /> : <PartnerLogin />}
       />
       <Route
         path="/user/register"
-        element={<UserRegister />}
+        element={!token ? <UserRegister /> : <Home />}
       />
       <Route
         path="/user/login"
-        element={<UserLogin />}
+        element={!token ? <UserLogin /> : <Home />}
       />
       <Route
         path="/partner/login"
-        element={<PartnerLogin />}
+        element={!token ? <PartnerLogin /> : <Home />}
       />
       <Route
         path="/partner/register"
-        element={<PartnerRegister />}
+        element={!token ? <PartnerRegister /> : <Home />}
       />
       <Route
         path="/partner/create-food"
-        element={<CreateFood />}
+        element={token ? <CreateFood /> : <PartnerLogin />}
       />
       <Route
         path="/food-partner/:id"
-        element={<PartnerDetails />}
+        element={token ? <PartnerDetails /> : <PartnerLogin />}
       />
     </Routes>
   )

@@ -15,6 +15,9 @@ const PartnerLogin = ({ toggleForm, toggleUserType }) => {
       console.log('Food Partner login:', data);
       // Here you would make your API call
       const response = await axios.post("/auth/partner/login", data, { withCredentials: true });
+      if (response?.data?.token) {
+        localStorage.setItem('token', response.data.token);
+      }
       console.log("Api Response: ", response);
 
       toast.success('Successfully logged in!', {
