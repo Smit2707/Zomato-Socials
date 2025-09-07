@@ -21,7 +21,7 @@ const registerController = async (req, res) => {
         fullName, email, password: hashedPassword
     })
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY)
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '24h' })
 
     res.cookie("token", token);
 
@@ -54,9 +54,15 @@ const loginController = async (req, res) => {
         });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, { expiresIn: '24h' });
 
-    res.cookie('token', token);
+    res.cookie('token', token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // e.g., 1 day
+        secure: true,      // Set to true for production (HTTPS)
+        sameSite: 'None',  // Required for cross-origin cookies
+        // domain: '.your-parent-domain.com' // Optional: if using subdomains
+      });
 
     res.status(200).json({
         message: "User Logged In Successfully.",
@@ -99,7 +105,7 @@ const foodPartnerRegisterController = async (req, res) => {
         fullName, email, password: hashedPassword, phone, address, contactName
     })
 
-    const token = jwt.sign({ id: foodPartner._id }, process.env.JWT_SECRET_KEY)
+    const token = jwt.sign({ id: foodPartner._id }, process.env.JWT_SECRET_KEY, { expiresIn: '24h' })
 
     res.cookie("token", token);
 
@@ -135,9 +141,15 @@ const foodPartnerLoginController = async (req, res) => {
         });
     }
 
-    const token = jwt.sign({ id: partner._id }, process.env.JWT_SECRET_KEY);
+    const token = jwt.sign({ id: partner._id }, process.env.JWT_SECRET_KEY, { expiresIn: '24h' });
 
-    res.cookie('token', token);
+    res.cookie('token', token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // e.g., 1 day
+        secure: true,      // Set to true for production (HTTPS)
+        sameSite: 'None',  // Required for cross-origin cookies
+        // domain: '.your-parent-domain.com' // Optional: if using subdomains
+      });
 
     res.status(200).json({
         message: "Food Partner Logged In Successfully.",

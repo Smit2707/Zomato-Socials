@@ -101,7 +101,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchFoodVideos();
-  }, []);
+  }, [token]);
 
   return (
     <div className="relative h-screen w-full bg-black overflow-hidden">
